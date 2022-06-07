@@ -1,0 +1,14 @@
+version: '3.1'
+services:
+  db:
+    image: mysql/mysql-server:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: demo_java
+      MYSQL_PASSWORD: 1234
+      MYSQL_DATABASE: banco
+    ports:
+      - "3306:3306"
+    volumes:
+      - $HOME/Desktop/MySQL-Snippets/banco.sql:/banco.sql

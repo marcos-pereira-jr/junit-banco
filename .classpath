@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/jgoodies-common-1_8_1/jgoodies-common-1.8.1/jgoodies-common-1.8.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/jgoodies-common-1_8_1/jgoodies-common-1.8.1/jgoodies-common-1.8.1-sources.jar"/>
+	<classpathentry kind="lib" path="lib/jgoodies-common-1_8_1/jgoodies-common-1.8.1/jgoodies-common-1.8.1-tests.jar"/>
+	<classpathentry kind="lib" path="lib/jgoodies-common-1_8_1/jgoodies-common-1.8.1/jgoodies-common-1.8.1.jar"/>
+	<classpathentry kind="lib" path="lib/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/BeanInfo.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/clientos.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/commonos.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/hessian-3.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/itext-1.4.8.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/iText-2.1.7.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/iText-rtf-2.1.7.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/jcalendar.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/jnlp-servlet.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/jnlp.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/log4j-1.2.7.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/poi-2.0-RC2-20040102.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/pooler.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/serveros.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/srcclientos.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/srccommonos.jar"/>
+	<classpathentry kind="lib" path="lib/OpenSwing-jars-only-2.4.7/build/srcserveros.jar"/>
+	<classpathentry kind="lib" path="lib/mockito/byte-buddy-1.10.8.jar"/>
+	<classpathentry kind="lib" path="lib/mockito/byte-buddy-agent-1.10.8.jar"/>
+	<classpathentry kind="lib" path="lib/mockito/mockito-core-3.3.3.jar"/>
+	<classpathentry kind="lib" path="lib/mockito/objenesis-3.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
