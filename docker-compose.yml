@@ -3,12 +3,12 @@ services:
   db:
     image: mysql/mysql-server:5.7
     restart: always
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: demo_java
       MYSQL_PASSWORD: 1234
-      MYSQL_DATABASE: banco
     ports:
       - "3306:3306"
     volumes:
-      - $HOME/Desktop/MySQL-Snippets/banco.sql:/banco.sql
+      - "./banco.sql:/docker-entrypoint-initdb.d/1.sql"

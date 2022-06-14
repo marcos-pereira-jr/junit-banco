@@ -124,7 +124,7 @@ public class BancoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(500,limiteMaximo,1);
+        Assert.assertEquals(1000,limiteMaximo,1);
     }
 
     @Test
@@ -208,6 +208,6 @@ public class BancoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(1500,limiteMaximo,1);
+        Assert.assertEquals(200,limiteMaximo,1);
     }
 }
