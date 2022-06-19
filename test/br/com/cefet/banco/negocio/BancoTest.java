@@ -167,7 +167,7 @@ public class BancoTest {
                 numeroClientes,numeroFuncionario);
 
         Assert.assertEquals(1000,limiteMaximo,1);
-    }
+        }
 
     @Test
     public void calcularLimite_testar_caminhoBasico_caminho8(){

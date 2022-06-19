@@ -9,7 +9,7 @@ public class ConnectionFactory {
 	public Connection getConexao(){
 		try{
 			System.out.println("Conectando com o banco...");
-			return DriverManager.getConnection("jdbc:mysql://localhost:3306/banco?autoReconnect=true&useSSL=false","demo_java","1234");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/banco?autoReconnect=true&useSSL=false","root","root");
 		} catch (SQLException e){
 			System.err.println("Erro na conex�o!");
 			throw new RuntimeException(e);
