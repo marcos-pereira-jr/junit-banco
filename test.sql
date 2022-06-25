@@ -1,8 +1,5 @@
-INSERT into Cliente(id,nome,endereco,cpf,usuario,senha) VALUES
+INSERT into Cliente(idCliente,nome,endereco,cpf,usuario,senha) VALUES
     (1,"Pedro Ferreira","Avenida","184.196.967-22","pferreira","1234"),
-<<<<<<< Updated upstream
-    (2,Amir Japones","Avenida","184.196.967-22","aJapones","1234");
-=======
     (2,"Amir Japones","Avenida","184.196.967-22","aJapones","1234"),
     (3,"Arthur Pedro","Avenida","184.196.967-22","aPedro","1234"),
     (4,"Kethlyn Ortega","Avenida","184.196.967-22","kOrtega","1234"),
@@ -22,4 +19,3 @@ insert into Funcionario(`cargo`, `cpf`, `departamento`, `endereco`, `idFuncionar
                               (0,'192.169.90-22', 'Deleted Caixa', 'Avenida', 4, 'Diretor', 50000, '2566', 'ccaixaD'),
                               (1,'192.169.90-22', 'Deleted Gerencia', 'Avenida', 5, 'Gerente', 50000, '2566', 'ggerenteD'),
                        		  (2,'192.169.90-22', 'Deleted Diretoria', 'Avenida', 6, 'Diretor', 50000, '2566', 'ddiretorD');
->>>>>>> Stashed changes

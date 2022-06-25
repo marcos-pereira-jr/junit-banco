@@ -28,25 +28,25 @@ public class ClienteDAOTest {
     }
 
     @Test
-    public void ClienteDAO_quandoChamadoListaClientes_deveRetornarUmaListaNaoVazia() {
+    public void getListaClientes_quandoExistirRegistrosValidos_deveRetornarUmaListaNaoVazia() {
         List<Cliente> clientes = clienteDAO.getListaClientes();
         Assert.assertTrue(clientes.size() > 0);
     }
 
     @Test
-    public void ClienteDAO_quandoChamadoGetClientesPassandoUsuario_deveRetornarUmCliente() {
+    public void getCliente_quandoChamadoGetClientesPassandoUsuario_deveRetornarUmCliente() {
         Cliente cliente = clienteDAO.getCliente("aJapones");
         Assert.assertNotNull(cliente);
     }
 
     @Test
-    public void ClienteDAO_quandoChamadoGetClientesPassandoId_deveRetornarUmCliente() {
+    public void getCliente_quandoChamadoGetClientesPassandoId_deveRetornarUmCliente() {
         Cliente cliente = clienteDAO.getCliente(2);
         Assert.assertNotNull(cliente);
     }
 
     @Test
-    public void ClienteDAO_quandoAlterarUmDadoDeUmCliente_deveAlterarNaBase() {
+    public void altera_quandoAlterarUmDadoDeUmCliente_deveAlterarNaBase() {
         Cliente cliente = clienteDAO.getCliente("aJapones");
         cliente.setNome("Pedro Pereira");
         clienteDAO.altera(cliente);
@@ -56,10 +56,10 @@ public class ClienteDAOTest {
     }
 
     @Test
-    public void ClienteDAO_quandoRemoverUmCLiente_deveNaoSerAchado() {
-        Cliente cliente = clienteDAO.getCliente("pferreira");
+    public void remove_quandoRemoverUmCLiente_deveNaoSerAchado() {
+        Cliente cliente = clienteDAO.getCliente("aPedro");
         clienteDAO.remove(cliente);
-        Assert.assertNull(clienteDAO.getCliente("pferreira"));
+        Assert.assertNull(clienteDAO.getCliente("aPedro"));
     }
 
     @Test
@@ -77,7 +77,4 @@ public class ClienteDAOTest {
         Assert.assertEquals("Wed Nov 04 00:00:00 BRT 2020",calendar.getTime());
     }
 
-    @Test
-    public void testGetCliente() {
-    }
 }
