@@ -46,7 +46,7 @@ public class ClienteDAOTest {
     }
 
     @Test
-    public void altera_quandoAlterarUmDadoDeUmCliente_deveAlterarNaBase() {
+    public void altera_quandoAlterarUmCliente_deveAlterarNaBase() {
         Cliente cliente = clienteDAO.getCliente("aJapones");
         cliente.setNome("Pedro Pereira");
         clienteDAO.altera(cliente);
