@@ -24,6 +24,7 @@ import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import br.com.cefet.banco.exceptions.DepositoInvalidoException;
+import br.com.cefet.banco.exceptions.PromocaoFuncionarioException;
 import br.com.cefet.banco.exceptions.SaldoInsuficienteException;
 import br.com.cefet.banco.negocio.Autenticavel;
 import br.com.cefet.banco.negocio.Banco;
@@ -31,6 +32,7 @@ import br.com.cefet.banco.negocio.Caixa;
 import br.com.cefet.banco.negocio.Cliente;
 import br.com.cefet.banco.negocio.Conta;
 import br.com.cefet.banco.negocio.ContaCorrente;
+import br.com.cefet.banco.negocio.ControleDePromocao;
 import br.com.cefet.banco.negocio.Diretor;
 import br.com.cefet.banco.negocio.Funcionario;
 import br.com.cefet.banco.negocio.Gerente;
@@ -114,12 +116,12 @@ public class PainelConsultarFuncionario extends JPanel implements ActionListener
 		sl_panelDadosPessoais.putConstraint(SpringLayout.WEST, lblEndereo, 0, SpringLayout.WEST, lblNome);
 		lblEndereo.setFont(new Font("Arial", Font.PLAIN, 18));
 		panelDadosPessoais.add(lblEndereo);
-
-		JLabel lblCpf = new JLabel("CPF");
-		sl_panelDadosPessoais.putConstraint(SpringLayout.NORTH, lblCpf, 30, SpringLayout.SOUTH, lblEndereo);
-		sl_panelDadosPessoais.putConstraint(SpringLayout.WEST, lblCpf, 0, SpringLayout.WEST, lblNome);
-		lblCpf.setFont(new Font("Arial", Font.PLAIN, 18));
-		panelDadosPessoais.add(lblCpf);
+		
+				JLabel lblCpf = new JLabel("CPF");
+				sl_panelDadosPessoais.putConstraint(SpringLayout.NORTH, lblCpf, 30, SpringLayout.SOUTH, lblEndereo);
+				sl_panelDadosPessoais.putConstraint(SpringLayout.WEST, lblCpf, 0, SpringLayout.WEST, lblNome);
+				lblCpf.setFont(new Font("Arial", Font.PLAIN, 18));
+				panelDadosPessoais.add(lblCpf);
 
 		nomeTxt = new JTextField();
 		sl_panelDadosPessoais.putConstraint(SpringLayout.NORTH, nomeTxt, -3, SpringLayout.NORTH, lblNome);
@@ -192,7 +194,7 @@ public class PainelConsultarFuncionario extends JPanel implements ActionListener
 		btnSalvarAlteraes = new JButton("Salvar altera\u00E7\u00F5es");
 		sl_panelDadosPessoais.putConstraint(SpringLayout.NORTH, panelConta, 20, SpringLayout.SOUTH, btnSalvarAlteraes);
 		sl_panelDadosPessoais.putConstraint(SpringLayout.EAST, btnSalvarAlteraes, 0, SpringLayout.EAST, nomeTxt);
-		btnSalvarAlteraes.setActionCommand("Salvar alterações");
+		btnSalvarAlteraes.setActionCommand("Salvar alteraï¿½ï¿½es");
 		btnSalvarAlteraes.addActionListener(this);
 		btnSalvarAlteraes.setEnabled(false);
 		btnSalvarAlteraes.setFont(new Font("Arial", Font.PLAIN, 18));
@@ -227,6 +229,24 @@ public class PainelConsultarFuncionario extends JPanel implements ActionListener
 		comboBox.setEnabled(false);
 		comboBox.setFont(new Font("Arial", Font.PLAIN, 18));
 		panelDadosPessoais.add(comboBox);
+		
+		JButton btnPromover = new JButton("Promover");
+		btnPromover.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+					ControleDePromocao service = new ControleDePromocao();
+					Funcionario promovente = (Funcionario)usuarioLogado;
+					try {
+						service.promoverFuncionario(promovente, funcionarioEncontrado);
+					} catch (PromocaoFuncionarioException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+			}
+		});
+		sl_panelDadosPessoais.putConstraint(SpringLayout.SOUTH, btnPromover, 0, SpringLayout.SOUTH, btnSalvarAlteraes);
+		sl_panelDadosPessoais.putConstraint(SpringLayout.EAST, btnPromover, -23, SpringLayout.WEST, btnSalvarAlteraes);
+		panelDadosPessoais.add(btnPromover);
 
 		JPanel panelEsquerda = new JPanel();
 		panelEsquerda.setPreferredSize(new Dimension(100, 100));
@@ -272,14 +292,14 @@ public class PainelConsultarFuncionario extends JPanel implements ActionListener
 					this.btnSalvarAlteraes.setEnabled(true);
 				} else {
 					this.btnSalvarAlteraes.setEnabled(false);
-					JOptionPane.showMessageDialog(this, "Funcionário não encontrado!", "Erro", JOptionPane.WARNING_MESSAGE);
+					JOptionPane.showMessageDialog(this, "Funcionï¿½rio nï¿½o encontrado!", "Erro", JOptionPane.WARNING_MESSAGE);
 					apagaCampos();
 				}
 			} else {
-				JOptionPane.showMessageDialog(this, "Digite o número do funcionário!", "Erro", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Digite o nï¿½mero do funcionï¿½rio!", "Erro", JOptionPane.WARNING_MESSAGE);
 			}
 		} else {
-			if("Salvar alterações".equals(e.getActionCommand())) {
+			if("Salvar alteraï¿½ï¿½es".equals(e.getActionCommand())) {
 				if(verificaCampos(this.nomeTxt.getText(),
 						  this.enderecoTxt.getText(),
 						  this.cpfTxt.getText(),
@@ -322,14 +342,14 @@ public class PainelConsultarFuncionario extends JPanel implements ActionListener
 						funcionarioAlterado.setId(funcionarioEncontrado.getId());
 						FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
 						funcionarioDAO.altera(funcionarioAlterado);
-						JOptionPane.showMessageDialog(this, "Funcionário número "+funcionarioAlterado.getId()+" alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Funcionï¿½rio nï¿½mero "+funcionarioAlterado.getId()+" alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 					} catch (ParseException e1) {
-						JOptionPane.showMessageDialog(this, "Erro no preenchimento do formulário!", "Erro", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(this, "Erro no preenchimento do formulï¿½rio!", "Erro", JOptionPane.ERROR_MESSAGE);
 						e1.printStackTrace();
 					}
 				}
 			} else {
-				JOptionPane.showMessageDialog(this, "Erro no preenchimento do formulário!", "Erro", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Erro no preenchimento do formulï¿½rio!", "Erro", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}
@@ -408,6 +428,4 @@ public class PainelConsultarFuncionario extends JPanel implements ActionListener
 	public JTextField getDepartamentoTxt() {
 		return departamentoTxt;
 	}
-	
-	
 }

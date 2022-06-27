@@ -71,7 +71,7 @@ public class TelaLogin implements ActionListener {
 
 	private void initialize() {
 		frmLogin = new JFrame();
-		frmLogin.setType(Type.POPUP);
+		//frmLogin.setType(Type.POPUP);
 		frmLogin.setResizable(false);
 		frmLogin.setTitle("Acesso");
 		frmLogin.setAlwaysOnTop(true);
