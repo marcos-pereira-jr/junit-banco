@@ -23,72 +23,45 @@ public class ControleDePromocaoTest {
     public void setUp() {
         this.service = new ControleDePromocao();
     }
-	
-	@Test
-	public void gerente_promove_caixa_para_gerente() throws PromocaoFuncionarioException {
-		Caixa promovido = new Caixa("Fernando","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
-		promovido.setId(0);
-		
-		Diretor promovente = new Diretor("Cléber","Avenida","192.169.90-22","Contas","2566","fgerente",50000);
-		promovente.setId(1);
-		
-		service.promoverFuncionario(promovente, promovido, 1);
-		
-		assertEquals(promovido.getCargo(), 1);
-	}
 
 	@Test
 	public void diretor_promove_caixa_para_gerente() throws PromocaoFuncionarioException {
-		Caixa promovido = new Caixa("Fernando","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
+		Caixa promovido = new Caixa("Clovius","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
 		promovido.setId(0);
 		
 		Diretor promovente = new Diretor("Cléber","Avenida","192.169.90-22","Contas","2566","fdiretor",50000);
 		promovente.setId(1);
 		
-		service.promoverFuncionario(promovente, promovido, 1);
+		service.promoverFuncionario(promovente, promovido);
 		
 		assertEquals(promovido.getCargo(), 1);
 	}
 	
 	@Test(expected = PromocaoFuncionarioException.class)
 	public void funcionario_se_autopromove() throws PromocaoFuncionarioException {
-		Caixa promovido = new Caixa("Fernando","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
+		Caixa promovido = new Caixa("Clovius","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
 		promovido.setId(0);
 		
 		Funcionario promovente = promovido;
 		promovente.setId(1);
 		
-		service.promoverFuncionario(promovente, promovido, 1);
+		service.promoverFuncionario(promovente, promovido);
 
 		assertEquals(promovido.getCargo(), 0);
 	}
 	
 	@Test(expected = PromocaoFuncionarioException.class)
 	public void funcionario_promove_funcionario_com_cargo_acima() throws PromocaoFuncionarioException {
-		Gerente promovido = new Gerente("Fernando","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
+		Gerente promovido = new Gerente("Clovius","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
 		promovido.setId(0);
 		
 		Caixa promovente = new Caixa("Cléber","Avenida","192.169.90-22","Contas","2566","fgerente",50000);
 		promovente.setId(1);
 		
-		service.promoverFuncionario(promovente, promovido, 2);
+		service.promoverFuncionario(promovente, promovido);
 
 		assertEquals(promovido.getCargo(), 2);
 	}
-	
-	@Test(expected = PromocaoFuncionarioException.class)
-	public void funcionario_promove_para_cargo_acima_dele() throws PromocaoFuncionarioException {
-		Caixa promovido = new Caixa("Fernando","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
-		promovido.setId(0);
-		
-		Gerente promovente = new Gerente("Cléber","Avenida","192.169.90-22","Contas","2566","fgerente",50000);
-		promovente.setId(1);
-		
-		service.promoverFuncionario(promovente, promovido, 3);
-
-		assertEquals(promovido.getCargo(), 2);
-	}
-	
 	
 
 }
