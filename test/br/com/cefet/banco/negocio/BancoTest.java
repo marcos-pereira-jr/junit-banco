@@ -8,8 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.Mockito.*;
+import org.mockito.internal.util.reflection.FieldSetter;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class BancoTest {
 
@@ -25,189 +32,137 @@ public class BancoTest {
     @Mock
     private ContaDAO daoConta;
 
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+
     @Before
-    public void init(){
-
+    public void setUp(){
         MockitoAnnotations.initMocks(this);
-    }
-
-
-    @Test
-    public void calcularLimite_testar_caminhoBasico_caminho1() {
-        // 1 - (I,1,2,18,0)
-        double saldoNegativo = -100;
-        double limit = 100;
-
-        Conta conta = new ContaCorrente(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoNegativo,limit,10,100,1,1);
-        Assert.assertEquals(limit,limiteMaximo,1);
+        System.setOut(new PrintStream(outputStreamCaptor));
     }
 
     @Test
-    public void calcularLimite_testar_caminhoBasico_caminho2(){
-        // 2 -(I,1,3,4,6,8,9,15,17,18,0)
-        double saldoPositivo = 10000;
+    public void calcularSaldoTotal_quandoExitir3ContasCadastradasComSaldoDe1000_deveRetornar3000() throws NoSuchFieldException {
+        List<Conta> contas = new ArrayList<>();
 
-        double limite = 1000;
+        banco.setContas(contas);
 
-        double gastoTotalBanco = 1000;
-        double saldoTotalBanco = 3000;
+        Conta contaCorrente1 = new ContaCorrente(1000);
+        Conta contaCorrente2 = new ContaCorrente(1000);
+        Conta contaCorrente3 = new ContaCorrente(1000);
 
-        int numeroClientes = 6;
-        int numeroFuncionario = 20;
+        banco.adicionarConta(contaCorrente1);
+        banco.adicionarConta(contaCorrente2);
+        banco.adicionarConta(contaCorrente3);
 
-        Conta conta = new ContaCorrente(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoPositivo,limite,
-                                                            gastoTotalBanco,saldoTotalBanco,
-                                                            numeroClientes,numeroFuncionario);
+        Assert.assertEquals(3000,banco.calcularSaldoTotal(),0);
 
-        Assert.assertEquals(saldoTotalBanco,limiteMaximo,1);
     }
 
     @Test
-    public void calcularLimite_testar_caminhoBasico_caminho3(){
-        // 3 -(I,1,3,5,6,8,9,15,17,18,0)
-        double saldoPositivo = 1000;
+    public void calcularTotalDeGastos_quando3FuncionariosDeSalario10000DeveRetornar30000(){
+        List<Funcionario> funcionarios = new ArrayList<>();
 
-        double limite = 100;
+        banco.setFuncionarios(funcionarios);
 
-        double gastoTotalBanco = 4000;
-        double saldoTotalBanco = 3000;
+        Diretor diretor =  new Diretor("Gerente","Avenida","192.169.90-22", "Contas",   "1234", "ddiretorD", 10000);
+        Gerente gerente =  new Gerente("Gerente","Avenida","192.169.90-22", "Contas",   "1234", "ggerenteD", 10000);
+        Caixa caixa =  new Caixa("Caixa","Avenida","192.169.90-22", "Contas",   "1234", "ccaixaD", 10000);
 
-        int numeroClientes = 6;
-        int numeroFuncionario = 20;
+        banco.contratarFuncionario(diretor);
+        banco.contratarFuncionario(gerente);
+        banco.contratarFuncionario(caixa);
 
-        Conta conta = new ContaCorrente(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoPositivo,limite,
-                gastoTotalBanco,saldoTotalBanco,
-                numeroClientes,numeroFuncionario);
+        Assert.assertEquals(30000,banco.calcularTotalDeGastos(),0);
 
-        Assert.assertEquals(200,limiteMaximo,1);
     }
 
     @Test
-    public void calcularLimite_testar_caminhoBasico_caminho4(){
-        // 4 -(I,1,3,4,6,8,10,15,17,18,0)
-        double saldoPositivo = 5000;
+    public void imprimeListaDeFuncionarios_quandoExistirUmFuncionario_devePrintarNoConsole(){
+        List<Funcionario> funcionarios = new ArrayList<>();
 
-        double limite = 300;
+        banco.setFuncionarios(funcionarios);
 
-        double gastoTotalBanco = 1000;
-        double saldoTotalBanco = 3000;
+        Diretor diretor =  new Diretor("Gerente","Avenida","192.169.90-22", "Contas",   "1234", "ddiretorD", 10000);
+        diretor.setEstado(EstadoFuncionario.EM_EXERCICIO);
+        banco.contratarFuncionario(diretor);
 
-        int numeroClientes = 6;
-        int numeroFuncionario = 20;
+        banco.imprimeListaDeFuncionarios();
 
-        Conta conta = new ContaCorrente(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoPositivo,limite,
-                gastoTotalBanco,saldoTotalBanco,
-                numeroClientes,numeroFuncionario);
+        Assert.assertEquals("-----------------------\n" +
+                "Nome: Gerente\n" +
+                "Endereço: Avenida\n" +
+                "CPF: 192.169.90-22\n" +
+                "Departamento: Contas\n" +
+                "Salário: 10000.0\n" +
+                "Estado: Em exercício" +
+                "\n",outputStreamCaptor.toString());
 
-        Assert.assertEquals(1500,limiteMaximo,1);
     }
 
     @Test
-    public void calcularLimite_testar_caminhoBasico_caminho5(){
-        // 5 -(I,1,3,4,6,7,8,9,15,17,18,0)
-        double saldoPositivo = 80000;
+    public void imprimeRelatorioDeContas_quandoExistirUmaConta_devePrintaNumero(){
+        List<Conta> contas = new ArrayList<>();
 
-        double limite = 0;
+        banco.setContas(contas);
 
-        double gastoTotalBanco = 4000;
-        double saldoTotalBanco = 5000;
+        Cliente cliente = new Cliente("Pedro Ferreira", "184.196.967-22", "Avenida Tancredo", "pferreira", "1234");
+        cliente.setId(1);
+        ContaCorrente contaCorrente = new ContaCorrente(1000.00);
+        contaCorrente.setTitular(cliente);
 
-        int numeroClientes = 6;
-        int numeroFuncionario = 20;
+        banco.adicionarConta(contaCorrente);
 
-        Conta conta = new ContaCorrente(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoPositivo,limite,
-                gastoTotalBanco,saldoTotalBanco,
-                numeroClientes,numeroFuncionario);
+        banco.imprimeRelatorioDeContas();
 
-        Assert.assertEquals(1000,limiteMaximo,1);
+        Assert.assertTrue(outputStreamCaptor.toString().contains("Numero"));
+
     }
 
     @Test
-    public void calcularLimite_testar_caminhoBasico_caminho6(){
-        // 6 -(I,1,3,4,6,8,11,15,17,18,0)
-        double saldoPositivo = 900;
+    public void atualizarContas_quandoAlteradaTaxaDoBancoPara2_deveAlterarSaldoDaContaPoupancaQueTem1000Para988(){
+        List<Conta> contas = new ArrayList<>();
+        banco.setContas(contas);
 
-        double limite = 1000;
+        Cliente cliente = new Cliente("Fernando", "184.196.967-22", "Avenida Tancredo", "FAlmeida", "1234");
+        cliente.setId(2);
+        ContaPoupanca contaPoupanca = new ContaPoupanca(1000.00);
+        contaPoupanca.setTitular(cliente);
 
-        double gastoTotalBanco = 4000;
-        double saldoTotalBanco = 5000;
+        banco.adicionarConta(contaPoupanca);
 
-        int numeroClientes = 6;
-        int numeroFuncionario = 20;
+        banco.atualizarContas(2);
 
-        Conta conta = new ContaPoupanca(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoPositivo,limite,
-                gastoTotalBanco,saldoTotalBanco,
-                numeroClientes,numeroFuncionario);
+         Conta contaDepoisDeAtualizar = banco.getContas().stream()
+                            .filter(c -> c.getTitular().getUsuario().equals("FAlmeida"))
+                            .findFirst()
+                            .get();
 
-        Assert.assertEquals(2000,limiteMaximo,1);
+         Assert.assertEquals(contaDepoisDeAtualizar.getSaldo(),998,0);
+
     }
 
     @Test
-    public void calcularLimite_testar_caminhoBasico_caminho7(){
-        // 7 (I,1,3,4,6,8,12,13,15,17,18,0)
-        double saldoPositivo = 800;
+    public void atualizarContas_quandoAlteradaTaxaDoBancoPara2_deveAlterarSaldoDaContaCorrenteQueTem1000Para996(){
+        List<Conta> contas = new ArrayList<>();
+        banco.setContas(contas);
 
-        double limite = 500;
+        Cliente cliente = new Cliente("Fernando", "184.196.967-22", "Avenida Tancredo", "FAlmeida", "1234");
+        cliente.setId(2);
+        ContaCorrente contaCorrente = new ContaCorrente(1000.00);
+        contaCorrente.setTitular(cliente);
 
-        double gastoTotalBanco = 4000;
-        double saldoTotalBanco = 5000;
+        banco.adicionarConta(contaCorrente);
 
-        int numeroClientes = 6;
-        int numeroFuncionario = 20;
+        banco.atualizarContas(2);
 
-        Conta conta = new ContaCorrente(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoPositivo,limite,
-                gastoTotalBanco,saldoTotalBanco,
-                numeroClientes,numeroFuncionario);
+        Conta contaDepoisDeAtualizar = banco.getContas().stream()
+                .filter(c -> c.getTitular().getUsuario().equals("FAlmeida"))
+                .findFirst()
+                .get();
 
-        Assert.assertEquals(1000,limiteMaximo,1);
-        }
+        Assert.assertEquals(contaDepoisDeAtualizar.getSaldo(),996,0);
 
-    @Test
-    public void calcularLimite_testar_caminhoBasico_caminho8(){
-        // 8 (I,3,4,6,8,12,14,15,17,18,0)
-        double saldoPositivo = 800;
-
-        double limite = 1000;
-
-        double gastoTotalBanco = 4000;
-        double saldoTotalBanco = 5000;
-
-        int numeroClientes = 6;
-        int numeroFuncionario = 20;
-
-        Conta conta = new ContaCorrente(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoPositivo,limite,
-                gastoTotalBanco,saldoTotalBanco,
-                numeroClientes,numeroFuncionario);
-
-        Assert.assertEquals(1800,limiteMaximo,1);
     }
 
-    @Test
-    public void calcularLimite_testar_caminhoBasico_caminho9(){
-        // 8 (I,3,4,5,6,8,9,15,16,17,18,0)
-        double saldoPositivo = 5000;
-
-        double limite = 300;
-
-        double gastoTotalBanco = 1000;
-        double saldoTotalBanco = 1000;
-
-        int numeroClientes = 5;
-        int numeroFuncionario = 20;
-
-        Conta conta = new ContaCorrente(1000);
-        double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoPositivo,limite,
-                gastoTotalBanco,saldoTotalBanco,
-                numeroClientes,numeroFuncionario);
-
-        Assert.assertEquals(200,limiteMaximo,1);
-    }
 }
