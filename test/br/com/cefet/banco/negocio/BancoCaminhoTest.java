@@ -145,7 +145,7 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(2000,limiteMaximo,1);
+        Assert.assertEquals(5000,limiteMaximo,1);
     }
 
     @Test
@@ -166,7 +166,7 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(1000,limiteMaximo,1);
+        Assert.assertEquals(5000,limiteMaximo,1);
         }
 
     @Test
@@ -187,12 +187,12 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(1800,limiteMaximo,1);
+        Assert.assertEquals(5000,limiteMaximo,1);
     }
 
     @Test
     public void calcularLimite_testar_caminhoBasico_caminho9(){
-        // 8 (I,3,5,6,8,9,15,16,17,18,0)
+        // 9 (I,3,5,6,8,9,15,16,17,18,0)
         double saldoPositivo = 5000;
 
         double limite = 300;
@@ -208,6 +208,6 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(200,limiteMaximo,1);
+        Assert.assertEquals(3000,limiteMaximo,1);
     }
 }
