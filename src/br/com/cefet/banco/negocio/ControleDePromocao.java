@@ -14,16 +14,11 @@ public class ControleDePromocao {
 			
 			if(!funcionariosSaoIguais(promovente, promovido)) {
 				if(promovente.getCargo() > promovido.getCargo()) {
-					if(promovente.getCargo() >= novoCargo) {
 						promovido.setCargo(novoCargo);
 						
 						FuncionarioDAO funcDao = new FuncionarioDAO();
 						funcDao.altera(promovido);
 						
-					}else {
-						this.err = true;
-						this.errMessage = "Não é possível um funcionário promover outro funcionário para um cargo maior ao seu";
-					}
 				}else {
 					this.err = true;
 					this.errMessage = "Não é possível um funcionário promover outro funcionário de cargo maior ou igual";
@@ -34,13 +29,9 @@ public class ControleDePromocao {
 			}
 			
 			if( this.err ) {
-				declararErro();
+				throw new PromocaoFuncionarioException(this.errMessage);
 			}
 			
-		}
-		
-		private void declararErro() throws PromocaoFuncionarioException {
-			throw new PromocaoFuncionarioException(this.errMessage);
 		}
 		
 		private boolean funcionariosSaoIguais(Funcionario funcionario1, Funcionario funcionario2) {

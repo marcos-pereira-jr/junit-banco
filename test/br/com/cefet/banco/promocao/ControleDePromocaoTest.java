@@ -43,11 +43,10 @@ public class ControleDePromocaoTest {
 		promovido.setId(0);
 		
 		Funcionario promovente = promovido;
-		promovente.setId(1);
 		
 		service.promoverFuncionario(promovente, promovido);
-
-		assertEquals(promovido.getCargo(), 0);
+		
+		// É esperado o lançamento de uma exceção
 	}
 	
 	@Test(expected = PromocaoFuncionarioException.class)
@@ -59,9 +58,33 @@ public class ControleDePromocaoTest {
 		promovente.setId(1);
 		
 		service.promoverFuncionario(promovente, promovido);
-
-		assertEquals(promovido.getCargo(), 2);
+		
+		// É esperado o lançamento de uma exceção
 	}
 	
+	@Test(expected = PromocaoFuncionarioException.class)
+	public void funcionario_promove_funcionario_para_cargo_acima() throws PromocaoFuncionarioException {
+		Gerente promovido = new Gerente("Clovius","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
+		promovido.setId(0);
+		
+		Gerente promovente = new Gerente("Cléber","Avenida","192.169.90-22","Contas","2566","fgerente",50000);
+		promovente.setId(1);
+		
+		service.promoverFuncionario(promovente, promovido);
+		
+		// É esperado o lançamento de uma exceção
+	}
+	
+	public void funionario_promove_funcionario_para_mesmo_cargo() throws PromocaoFuncionarioException{
+		Caixa promovido = new Caixa("Cléber","Avenida","192.169.90-22","Contas","2566","fgerente",50000);
+		promovido.setId(0);
+		
+		Gerente promovente = new Gerente("Clovius","Avenida","192.169.90-22","Contas","2566","fcaixa",50000);
+		promovente.setId(1);
+		
+		service.promoverFuncionario(promovente, promovido);
+		
+		// É esperado o lançamento de uma exceção
+	}
 
 }
