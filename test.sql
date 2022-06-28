@@ -18,4 +18,5 @@ insert into Funcionario(`cargo`, `cpf`, `departamento`, `endereco`, `idFuncionar
                        		  (2,'192.169.90-22', 'Diretoria', 'Avenida', 1, 'Diretor', 50000, '2566', 'ddiretor'),
                               (0,'192.169.90-22', 'Deleted Caixa', 'Avenida', 4, 'Diretor', 50000, '2566', 'ccaixaD'),
                               (1,'192.169.90-22', 'Deleted Gerencia', 'Avenida', 5, 'Gerente', 50000, '2566', 'ggerenteD'),
-                       		  (2,'192.169.90-22', 'Deleted Diretoria', 'Avenida', 6, 'Diretor', 50000, '2566', 'ddiretorD');
+                       		  (2,'192.169.90-22', 'Deleted Diretoria', 'Avenida', 6, 'Diretor', 50000, '2566', 'ddiretorD'),
+                              (0,'192.168.90-22', 'Login User','Avenida',7,'Diretor',50000,'1234','llogin');

@@ -40,7 +40,7 @@ public class BancoCaminhoTest {
 
         Conta conta = new ContaCorrente(1000);
         double limiteMaximo = banco.calcularLimiteMaximo(conta,saldoNegativo,limit,10,100,1,1);
-        Assert.assertEquals(limit,limiteMaximo,1);
+        Assert.assertEquals(limit,limiteMaximo,00.01);
     }
 
     @Test
@@ -61,7 +61,7 @@ public class BancoCaminhoTest {
                                                             gastoTotalBanco,saldoTotalBanco,
                                                             numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(10000,limiteMaximo,1);
+        Assert.assertEquals(10000,limiteMaximo,00.01);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(2000,limiteMaximo,1);
+        Assert.assertEquals(2000,limiteMaximo,00.01);
     }
 
     @Test
@@ -103,7 +103,7 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(1500,limiteMaximo,1);
+        Assert.assertEquals(1500,limiteMaximo,00.01);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(800000,limiteMaximo,1);
+        Assert.assertEquals(800000,limiteMaximo,00.01);
     }
 
     @Test
@@ -145,7 +145,7 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(5000,limiteMaximo,1);
+        Assert.assertEquals(5000,limiteMaximo,00.01);
     }
 
     @Test
@@ -166,7 +166,7 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(5000,limiteMaximo,1);
+        Assert.assertEquals(5000,limiteMaximo,00.01);
         }
 
     @Test
@@ -187,7 +187,7 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(5000,limiteMaximo,1);
+        Assert.assertEquals(5000,limiteMaximo,00.01);
     }
 
     @Test
@@ -208,6 +208,6 @@ public class BancoCaminhoTest {
                 gastoTotalBanco,saldoTotalBanco,
                 numeroClientes,numeroFuncionario);
 
-        Assert.assertEquals(3000,limiteMaximo,1);
+        Assert.assertEquals(3000,limiteMaximo,00.01);
     }
 }

@@ -143,6 +143,36 @@ public class BancoTest {
     }
 
     @Test
+    public void atualizarContas_quandoAlteradaTaxaDoBancoPara2_deveAlterarSaldoDasContaPoupancaQueTem1000Para988(){
+        List<Conta> contas = new ArrayList<>();
+        banco.setContas(contas);
+
+        Cliente cliente = new Cliente("Fernando", "184.196.967-22", "Avenida Tancredo", "FAlmeida", "1234");
+        cliente.setId(2);
+        ContaPoupanca contaPoupanca = new ContaPoupanca(1000.00);
+        contaPoupanca.setTitular(cliente);
+
+        banco.adicionarConta(contaPoupanca);
+
+        Cliente cliente2 = new Cliente("Fernando", "184.196.967-22", "Avenida Tancredo", "FAlmeida", "1234");
+        cliente2.setId(2);
+        ContaPoupanca contaPoupanca2 = new ContaPoupanca(1000.00);
+        contaPoupanca.setTitular(cliente2);
+
+        banco.adicionarConta(contaPoupanca2);
+
+        banco.atualizarContas(2);
+
+        Conta contaDepoisDeAtualizar = banco.getContas().stream()
+                .filter(c -> c.getTitular().getUsuario().equals("FAlmeida"))
+                .findFirst()
+                .get();
+
+        Assert.assertEquals(contaDepoisDeAtualizar.getSaldo(),998,0);
+
+    }
+
+    @Test
     public void atualizarContas_quandoAlteradaTaxaDoBancoPara2_deveAlterarSaldoDaContaCorrenteQueTem1000Para996(){
         List<Conta> contas = new ArrayList<>();
         banco.setContas(contas);
